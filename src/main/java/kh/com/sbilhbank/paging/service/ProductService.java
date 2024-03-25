@@ -7,6 +7,6 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface ProductService {
-    Product add(ProductRequest product);
+    Product add(ProductRequest productRequest);
     List<Product> findProduct(PageRequest pageRequest);
 }

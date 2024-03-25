@@ -23,7 +23,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> findProduct(int pageNumber, int pageSize) {
+    public List<Product> findProduct(@RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+                                     @RequestParam(name = "pageSize", defaultValue = "5") int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("price"));
         return productService.findProduct(pageRequest);
     }

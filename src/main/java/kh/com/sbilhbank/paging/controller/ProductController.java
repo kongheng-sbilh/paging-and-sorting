@@ -26,12 +26,14 @@ public class ProductController {
     public List<Product> findProduct(@RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
                                      @RequestParam(name = "pageSize", defaultValue = "5") int pageSize) {
         Sort sort = Sort.by("price");
-        PageRequest pageRequest;
-        if (pageNumber == -1 && pageSize == -1) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
+        if (isQueryAll(pageRequest)) {
             pageRequest = PageRequest.of(0, Integer.MAX_VALUE, sort);
-        } else {
-            pageRequest = PageRequest.of(pageNumber, pageSize, sort);
         }
         return productService.findProduct(pageRequest);
+    }
+
+    private boolean isQueryAll(PageRequest pageRequest) {
+        return pageRequest.getPageNumber() == -1 && pageRequest.getPageSize() == -1;
     }
 }
